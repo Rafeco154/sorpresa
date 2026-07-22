@@ -9,6 +9,10 @@ html {
   height: -webkit-fill-available;
   /* Mismo color base que el body, para que el rebote de scroll no muestre blanco */
   background: #171520;
+  /* Evita que Chrome/Android agrande automáticamente el texto que envuelve
+     a su propia línea (p.ej. "SEG" en el contador) */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -75,16 +79,20 @@ body.lightbox-open {
 /* CONTADOR */
 #clock {
   margin-bottom: 35px;
+  /* Grid de 4 columnas fijas: nunca envuelve a una 2ª fila (evitamos así
+     el "font boosting" que Chrome aplica a bloques huérfanos al envolver) */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(4px, 2vw, 10px);
 }
 
 .time-block {
-  display: inline-block;
-  margin: 0 clamp(5px, 2.5vw, 10px);
+  min-width: 0;
 }
 
 .time-block span {
   display: block;
-  font-size: clamp(36px, 11vw, 50px);
+  font-size: clamp(30px, 11vw, 50px);
   font-weight: 700;
   color: #ff79c6;
   text-shadow: 0 0 18px rgba(255, 121, 198, 0.35);
@@ -812,11 +820,19 @@ button.games-link {
   }
 
   .input-group {
-    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  .input-group input {
+    flex: 1 1 100%;
   }
 
   .input-group button {
-    width: 100%;
+    flex: 1;
+  }
+
+  .input-group .password-toggle {
+    flex: 0 0 auto;
   }
 
   .gift-card {
