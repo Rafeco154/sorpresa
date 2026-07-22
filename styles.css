@@ -5,8 +5,15 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+html {
+  height: -webkit-fill-available;
+  /* Mismo color base que el body, para que el rebote de scroll no muestre blanco */
+  background: #171520;
+}
+
 body {
   background: radial-gradient(circle, #2a2438 0%, #171520 100%);
+  background-attachment: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,16 +21,13 @@ body {
   min-height: -webkit-fill-available;
   font-family: 'Poppins', sans-serif;
   color: #fff;
+  /* Evita el rebote de scroll (Android/iOS) que deja ver el fondo blanco */
+  overscroll-behavior: none;
   /* Safe area para iPhone con notch / Dynamic Island */
   padding: max(20px, env(safe-area-inset-top))
            max(20px, env(safe-area-inset-right))
            max(20px, env(safe-area-inset-bottom))
            max(20px, env(safe-area-inset-left));
-}
-
-/* Evita el rebote de scroll en iOS */
-html {
-  height: -webkit-fill-available;
 }
 
 /* TARJETA CONTENEDORA */
