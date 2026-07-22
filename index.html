@@ -1,0 +1,52 @@
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi regalo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="card-container">
+        <!-- Título principal -->
+        <h1 class="main-title">Cuenta atrás... tik tak ✨</h1>
+        
+        <!-- Contador -->
+        <div id="clock">
+            <div class="time-block">
+                <span id="days">00</span>
+                <small>Días</small>
+            </div>
+            <div class="time-block">
+                <span id="hours">00</span>
+                <small>Horas</small>
+            </div>
+            <div class="time-block">
+                <span id="minutes">00</span>
+                <small>Min</small>
+            </div>
+            <div class="time-block">
+                <span id="seconds">00</span>
+                <small>Seg</small>
+            </div>
+        </div>
+
+        <!-- Seccion de la contraseña -->
+        <div class="lock-section">
+            <p class="lock-instruction">Introduce la clave secreta para desbloquear:</p>
+            
+            <div class="input-group">
+                <input type="password" id="pass-input" placeholder="Escribe aquí..." autocomplete="off">
+                <button onclick="checkPassword()">Desbloquear</button>
+            </div>
+            
+            <!-- Mensaje de error (oculto por defecto) -->
+            <p id="error-message" class="error-msg"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
