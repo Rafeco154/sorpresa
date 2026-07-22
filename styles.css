@@ -17,12 +17,17 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  /* "safe center": si el contenido es más alto que la pantalla (pantalla revelada),
+     se alinea arriba en vez de recortarse por arriba al centrarlo */
+  align-items: safe center;
   min-height: 100vh;
   min-height: -webkit-fill-available;
   font-family: 'Poppins', sans-serif;
   color: #fff;
   /* Evita el rebote de scroll (Android/iOS) que deja ver el fondo blanco */
   overscroll-behavior: none;
+  /* Scroll fluido en iOS */
+  -webkit-overflow-scrolling: touch;
   /* Safe area para iPhone con notch / Dynamic Island */
   padding: max(20px, env(safe-area-inset-top))
            max(20px, env(safe-area-inset-right))
@@ -43,6 +48,18 @@ body {
   border: 1px solid rgba(255, 121, 198, 0.15);
   max-width: 550px;
   width: 100%;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.card-container.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Bloquea el scroll de fondo mientras el lightbox está abierto */
+body.lightbox-open {
+  overflow: hidden;
 }
 
 /* TÍTULO PRINCIPAL */
@@ -126,6 +143,29 @@ body {
   box-shadow: 0 0 12px rgba(255, 121, 198, 0.25);
 }
 
+/* BOTÓN MOSTRAR/OCULTAR CONTRASEÑA (fuera del campo de texto) */
+.password-toggle {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 121, 198, 0.3);
+  background: rgba(0, 0, 0, 0.25);
+  color: #fff;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  touch-action: manipulation;
+  min-height: 44px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.password-toggle:hover,
+.password-toggle:active {
+  border-color: #ff79c6;
+  background: rgba(255, 121, 198, 0.15);
+}
+
 /* BOTÓN */
 .input-group button {
   padding: 12px 20px;
@@ -160,6 +200,44 @@ body {
   box-shadow: 0 3px 10px rgba(255, 121, 198, 0.4);
 }
 
+/* ENLACE A LOS JUEGOS MENSUALES */
+.games-link-section {
+  margin-top: 20px;
+}
+
+.games-link {
+  display: inline-block;
+  text-decoration: none;
+  color: #ff79c6;
+  background: rgba(255, 121, 198, 0.1);
+  border: 1px solid rgba(255, 121, 198, 0.3);
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.games-link:hover,
+.games-link:active {
+  background: rgba(255, 121, 198, 0.22);
+  transform: translateY(-2px);
+}
+
+.games-return {
+  display: block;
+  width: fit-content;
+  margin: 30px auto 0;
+}
+
+/* Reset de estilos nativos cuando .games-link se usa en un <button> */
+button.games-link {
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 /* MENSAJE DE ERROR Y ANIMACIÓN */
 .error-msg {
   color: #ff5555;
@@ -178,6 +256,551 @@ body {
   75% { transform: translateX(8px); }
 }
 
+/* ======================================== */
+/* PANTALLA 2: REGALO DESBLOQUEADO           */
+/* ======================================== */
+
+.reveal-screen {
+  width: 100%;
+  max-width: 640px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  -webkit-overflow-scrolling: touch;
+  /* Espacio inferior para no chocar con las barras de navegación nativas */
+  padding-bottom: max(40px, env(safe-area-inset-bottom));
+}
+
+.reveal-screen.fade-in {
+  opacity: 1;
+}
+
+/* El atributo [hidden] debe ganar siempre a display, aunque tengamos
+   nuestras propias reglas de display en esta clase */
+.reveal-screen[hidden] {
+  display: none;
+}
+
+/* CABECERA ROMÁNTICA */
+.reveal-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.reveal-title {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: #f8f8f2;
+  font-size: clamp(1.6rem, 6vw, 2.4rem);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  margin-bottom: 10px;
+}
+
+.reveal-subtitle {
+  color: #c0b7e1;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* TARJETA DEL REGALO PRINCIPAL */
+.gift-card {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 121, 198, 0.2);
+  border-radius: 20px;
+  padding: 28px 22px;
+  margin-bottom: 34px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.gift-card-title {
+  font-family: 'Playfair Display', serif;
+  color: #f8f8f2;
+  font-size: clamp(1.2rem, 4.5vw, 1.6rem);
+  margin-bottom: 12px;
+}
+
+.gift-card-text {
+  color: #c0b7e1;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.gift-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.badge {
+  background: rgba(255, 121, 198, 0.12);
+  border: 1px solid rgba(255, 121, 198, 0.3);
+  color: #ff79c6;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* MURO / GALERÍA DE RECUERDOS */
+.section-title {
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  color: #f8f8f2;
+  font-size: clamp(1.1rem, 4vw, 1.4rem);
+  margin-bottom: 16px;
+}
+
+/* Grid fijo de 2 columnas que intercala fotos y notas en el orden del HTML
+   (foto | foto, nota | foto, foto | nota...) para que las imágenes se vean
+   más grandes en cualquier tamaño de pantalla */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.gallery-item {
+  margin: 0;
+}
+
+.gallery-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  object-fit: cover;
+  cursor: zoom-in;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.gallery-item img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+}
+
+.gallery-item img:active {
+  transform: scale(0.98);
+}
+
+/* Texto debajo de cada foto */
+.photo-caption {
+  color: #c0b7e1;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  margin-top: 8px;
+  text-align: left;
+}
+
+.photo-caption p + p {
+  margin-top: 10px;
+}
+
+.note-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 121, 198, 0.15);
+  border-radius: 16px;
+  padding: 16px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.note-quote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: #f8f8f2;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.note-tag {
+  display: block;
+  color: #c0b7e1;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ===== LIGHTBOX (imagen ampliada) ===== */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 8, 15, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.lightbox-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-overlay img {
+  max-width: 92vw;
+  max-height: 85vh;
+  border-radius: 14px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+  object-fit: contain;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: max(16px, env(safe-area-inset-top));
+  right: max(16px, env(safe-area-inset-right));
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 121, 198, 0.3);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  touch-action: manipulation;
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 121, 198, 0.25);
+}
+
+/* ESCRITORIO / PANTALLAS GRANDES: todo más amplio y legible */
+@media (min-width: 900px) {
+  .card-container {
+    max-width: 620px;
+    padding: 55px 60px;
+  }
+
+  .time-block span {
+    font-size: 60px;
+  }
+
+  .reveal-screen {
+    max-width: 1080px;
+  }
+
+  .reveal-title {
+    font-size: 3rem;
+  }
+
+  .reveal-subtitle {
+    font-size: 1.15rem;
+  }
+
+  .gift-card {
+    padding: 45px 70px;
+  }
+
+  .gift-card-title {
+    font-size: 2rem;
+  }
+
+  .gift-card-text {
+    font-size: 1.1rem;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .badge {
+    font-size: 0.9rem;
+    padding: 8px 18px;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 22px;
+  }
+
+  .gallery-grid {
+    gap: 26px;
+  }
+
+  .gallery-item img {
+    border-radius: 20px;
+  }
+
+  .photo-caption {
+    font-size: 0.9rem;
+  }
+
+  .note-card {
+    padding: 22px;
+  }
+
+  .note-quote {
+    font-size: 1.05rem;
+  }
+}
+
+/* ======================================== */
+/* PÁGINA DE JUEGOS MENSUALES                */
+/* ======================================== */
+
+.games-page {
+  width: 100%;
+  max-width: 640px;
+  padding-bottom: max(40px, env(safe-area-inset-bottom));
+}
+
+.back-link {
+  display: inline-block;
+  color: #c0b7e1;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-bottom: 18px;
+  transition: color 0.3s ease;
+}
+
+.back-link:hover {
+  color: #ff79c6;
+}
+
+.games-title {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: #f8f8f2;
+  font-size: clamp(1.6rem, 6vw, 2.2rem);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.games-subtitle {
+  color: #c0b7e1;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* TARJETA DE JUEGO */
+.game-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 121, 198, 0.15);
+  border-radius: 20px;
+  padding: 26px 22px;
+  margin-bottom: 22px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.game-card-title {
+  font-family: 'Playfair Display', serif;
+  color: #f8f8f2;
+  font-size: clamp(1.1rem, 4.2vw, 1.35rem);
+  margin-bottom: 14px;
+}
+
+.game-question {
+  color: #c0b7e1;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.game-feedback {
+  font-size: 0.9rem;
+  min-height: 20px;
+  margin-top: 12px;
+}
+
+.game-feedback.is-error {
+  color: #ff5555;
+}
+
+.game-feedback.is-success {
+  color: #ff79c6;
+  font-weight: 600;
+}
+
+.game-feedback.is-success strong {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  letter-spacing: 1px;
+}
+
+.game-locked-msg {
+  color: #c0b7e1;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* TRIVIA (agosto) */
+.trivia-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.trivia-option {
+  padding: 12px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 121, 198, 0.3);
+  background: rgba(0, 0, 0, 0.25);
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  -webkit-appearance: none;
+  appearance: none;
+  touch-action: manipulation;
+  min-height: 44px;
+}
+
+.trivia-option:hover,
+.trivia-option:active {
+  border-color: #ff79c6;
+  background: rgba(255, 121, 198, 0.15);
+}
+
+/* MEMORAMA (septiembre) */
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.memory-card {
+  aspect-ratio: 1;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 121, 198, 0.3);
+  background: rgba(0, 0, 0, 0.25);
+  color: #fff;
+  font-size: clamp(1.4rem, 6vw, 1.8rem);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  -webkit-appearance: none;
+  appearance: none;
+  touch-action: manipulation;
+}
+
+.memory-card.is-flipped {
+  background: rgba(255, 121, 198, 0.15);
+  border-color: #ff79c6;
+}
+
+.memory-card.is-matched {
+  background: rgba(255, 121, 198, 0.25);
+  border-color: #ff79c6;
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* AHORCADO (octubre) */
+.hangman-word {
+  font-family: 'Playfair Display', serif;
+  color: #f8f8f2;
+  font-size: clamp(1.3rem, 5.5vw, 1.8rem);
+  letter-spacing: 6px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.hangman-lives {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+}
+
+.hangman-letters {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.hangman-key {
+  padding: 8px 0;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 121, 198, 0.3);
+  background: rgba(0, 0, 0, 0.25);
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+  touch-action: manipulation;
+}
+
+.hangman-key:hover:not(:disabled) {
+  border-color: #ff79c6;
+  background: rgba(255, 121, 198, 0.15);
+}
+
+.hangman-key:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* PUZZLE DESLIZANTE (diciembre) */
+.sliding-puzzle {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+.puzzle-tile {
+  aspect-ratio: 1;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 121, 198, 0.3);
+  background-color: rgba(255, 121, 198, 0.12);
+  background-size: 300% 300%;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  transition: filter 0.2s ease, border-color 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+  touch-action: manipulation;
+}
+
+.puzzle-tile:hover {
+  border-color: #ff79c6;
+  filter: brightness(1.08);
+}
+
+.puzzle-tile.is-empty {
+  background-color: transparent;
+  background-image: none;
+  border-color: transparent;
+  cursor: default;
+}
+
+/* Escritorio: página de juegos más ancha */
+@media (min-width: 900px) {
+  .games-page {
+    max-width: 720px;
+  }
+
+  .game-card {
+    padding: 34px 40px;
+  }
+}
+
 /* MÓVIL (iPhone SE, iPhone estándar/Pro Max, Android, etc.) */
 @media (max-width: 480px) {
   .card-container {
@@ -194,5 +817,9 @@ body {
 
   .input-group button {
     width: 100%;
+  }
+
+  .gift-card {
+    padding: 22px 18px;
   }
 }

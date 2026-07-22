@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Juegos mensuales</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=1.7">
+</head>
+
+<body>
+    <div class="games-page">
+        <a href="index.html" class="back-link">← Volver</a>
+
+        <h1 class="games-title">Juegos mensuales 🎮</h1>
+        <p class="games-subtitle">
+            Cada mes se desbloquea un juego nuevo. Consigue los 5 fragmentos y únelos
+            en orden para descubrir la contraseña final.
+        </p>
+
+        <!-- AGOSTO: Trivia -->
+        <section class="game-card" data-month="august">
+            <h2 class="game-card-title">🌞 Agosto · Trivia</h2>
+
+            <p class="game-locked-msg"></p>
+
+            <div class="game-body">
+                <p class="game-question">¿En qué fecha nos conocimos en persona?</p>
+                <div class="trivia-options">
+                    <button class="trivia-option" type="button">5 de junio</button>
+                    <button class="trivia-option" type="button">13 de junio</button>
+                    <button class="trivia-option" type="button" data-correct="true">21 de junio</button>
+                    <button class="trivia-option" type="button">19 de diciembre</button>
+                </div>
+                <p class="game-feedback"></p>
+            </div>
+        </section>
+
+        <!-- SEPTIEMBRE: Memorama -->
+        <section class="game-card" data-month="september">
+            <h2 class="game-card-title">🍂 Septiembre · Memorama</h2>
+
+            <p class="game-locked-msg"></p>
+
+            <div class="game-body">
+                <p class="game-question">Encuentra las 6 parejas para conseguir tu fragmento:</p>
+                <div class="memory-grid">
+                    <button class="memory-card" type="button" data-pair="4" data-symbol="🔥">❓</button>
+                    <button class="memory-card" type="button" data-pair="1" data-symbol="🏡">❓</button>
+                    <button class="memory-card" type="button" data-pair="3" data-symbol="❤️">❓</button>
+                    <button class="memory-card" type="button" data-pair="6" data-symbol="⭐">❓</button>
+                    <button class="memory-card" type="button" data-pair="2" data-symbol="🌙">❓</button>
+                    <button class="memory-card" type="button" data-pair="5" data-symbol="🌲">❓</button>
+                    <button class="memory-card" type="button" data-pair="1" data-symbol="🏡">❓</button>
+                    <button class="memory-card" type="button" data-pair="4" data-symbol="🔥">❓</button>
+                    <button class="memory-card" type="button" data-pair="6" data-symbol="⭐">❓</button>
+                    <button class="memory-card" type="button" data-pair="3" data-symbol="❤️">❓</button>
+                    <button class="memory-card" type="button" data-pair="5" data-symbol="🌲">❓</button>
+                    <button class="memory-card" type="button" data-pair="2" data-symbol="🌙">❓</button>
+                </div>
+                <p class="game-feedback"></p>
+            </div>
+        </section>
+
+        <!-- OCTUBRE: Ahorcado -->
+        <section class="game-card" data-month="october">
+            <h2 class="game-card-title">🎃 Octubre · Ahorcado</h2>
+
+            <p class="game-locked-msg"></p>
+
+            <div class="game-body">
+                <p class="game-question">Adivina la palabra letra a letra:</p>
+                <p class="hangman-word"></p>
+                <p class="hangman-lives"></p>
+                <div class="hangman-letters"></div>
+                <p class="game-feedback"></p>
+            </div>
+        </section>
+
+        <!-- NOVIEMBRE: Adivinanza -->
+        <section class="game-card" data-month="november">
+            <h2 class="game-card-title">🍁 Noviembre · Adivinanza</h2>
+
+            <p class="game-locked-msg"></p>
+
+            <div class="game-body">
+                <p class="game-question">
+                    "No tengo techo ni paredes, solo troncos altos y un suelo de hojas.
+                    El aire huele a tierra mojada, y el silencio solo lo rompen las ramas. ¿Qué soy?"
+                </p>
+                <div class="input-group">
+                    <input type="text" class="riddle-input" placeholder="Tu respuesta" autocomplete="off">
+                    <button type="button" class="riddle-check">Comprobar</button>
+                </div>
+                <p class="game-feedback"></p>
+            </div>
+        </section>
+
+        <!-- DICIEMBRE: Puzzle deslizante -->
+        <section class="game-card" data-month="december">
+            <h2 class="game-card-title">🎄 Diciembre · Puzzle deslizante</h2>
+
+            <p class="game-locked-msg"></p>
+
+            <div class="game-body">
+                <p class="game-question">Ordena las fichas del 1 al 8 para conseguir tu último fragmento:</p>
+                <div class="sliding-puzzle" id="sliding-puzzle"></div>
+                <p class="game-feedback"></p>
+            </div>
+        </section>
+
+        <a href="index.html" class="games-link games-return">← Volver a la pantalla principal</a>
+    </div>
+
+    <script src="config.js?v=1.7"></script>
+    <script src="games.js?v=1.7"></script>
+</body>
+</html>

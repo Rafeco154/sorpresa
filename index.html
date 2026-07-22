@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -7,15 +7,15 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Mi regalo</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?1.3">
-    <script src="script.js?v=1.3"></script>
+    <link rel="stylesheet" href="styles.css?v=2.0">
 </head>
 
 <body>
-    <div class="card-container">
+    <!-- PANTALLA 1: Cuenta atrás + clave secreta -->
+    <div class="card-container" id="login-screen">
         <!-- Título principal -->
         <h1 class="main-title">Cuenta atrás... tik tak ✨</h1>
-        
+
         <!-- Contador -->
         <div id="clock">
             <div class="time-block">
@@ -39,17 +39,116 @@
         <!-- Seccion de la contraseña -->
         <div class="lock-section">
             <p class="lock-instruction">Introduce la clave secreta para desbloquear:</p>
-            
+
             <div class="input-group">
                 <input type="password" id="pass-input" placeholder="¿Cuál será la llave del tesoro?" autocomplete="off" inputmode="text">
+                <button type="button" class="password-toggle" id="password-toggle" aria-label="Mostrar contraseña">👁️</button>
                 <button onclick="checkPassword()">Desbloquear</button>
             </div>
-            
+
             <!-- Mensaje de error (oculto por defecto) -->
             <p id="error-message" class="error-msg"></p>
         </div>
+
+        <!-- Acceso a los juegos mensuales -->
+        <div class="games-link-section">
+            <a href="juegos.html" class="games-link">🎮 Juegos mensuales</a>
+        </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- PANTALLA 2: Regalo desbloqueado (oculta hasta acertar la clave) -->
+    <div class="reveal-screen" id="reveal-screen" hidden>
+
+        <!-- Cabecera romántica -->
+        <header class="reveal-header">
+            <h1 class="reveal-title">Feliz cumpleaños, mi amor ✨</h1>
+            <p class="reveal-subtitle">Gracias por existir. Esto es solo un pedacito de todo lo que siento por ti.</p>
+        </header>
+
+        <!-- Tarjeta del regalo principal -->
+        <section class="gift-card">
+            <h2 class="gift-card-title">🎁 Tu regalo principal</h2>
+            <p class="gift-card-text">
+                Un fin de semana solo para nosotros dos, rodeados de naturaleza, lejos del ruido
+                y con todo el tiempo del mundo para mimarte y desconectar juntos.
+                <!-- TODO: personaliza este texto con los detalles reales del plan -->
+            </p>
+            <div class="gift-badges">
+                <span class="badge">📅 Fecha por confirmar</span>
+                <span class="badge">📍 Ubicación sorpresa</span>
+                <span class="badge">🌲 Cabañas en la naturaleza</span>
+                <span class="badge">🔌 Desconexión total</span>
+                <!-- TODO: sustituye estos badges por las fechas y el lugar reales -->
+            </div>
+        </section>
+
+        <!-- Muro / galería de recuerdos -->
+        <section class="memory-wall">
+            <h2 class="section-title">Nuestro muro de recuerdos</h2>
+
+            <div class="gallery-grid">
+                <figure class="gallery-item">
+                    <img src="images/image1.png" alt="Recuerdo 1" loading="lazy" width="1600" height="1200">
+                    <figcaption class="photo-caption">
+                        <p>Un mes, solo un mes llevábamos conociéndonos, quien lo diría... Me parece algo tan curioso, conectar tanto con una persona en tan poco tiempo, lo cómodo que me sentía a tu lado, lo mucho que me gustaba mirarte, lo que te admiraba y te admiro a día de hoy... tantas buenas sensaciones y sentimientos.</p>
+                        <p>Aún queda mucho tiempo para que leas esto, poco menos de 5 meses, pero una cantidad de tiempo bastante grande, un tiempo que espero no ayude a conocernos mas, que nos refuerce, tanto de manera individual como en nuestra relación. Se que no van a ser un camino de rosas, habrá tiempos mejores y tiempos peores, un ejemplo perfecto es el mes que entra, un mes en el cual no nos veremos, pero confío plenamente en que sirva para reforzar nuestra confianza en el otro.</p>
+                        <p>En base a todo esto te diré, ya ahora me haces muy feliz y confío en que lo seguirás haciendo, al igual que espero seguir haciéndote mucho más feliz y que sigas mirándome en esta foto, con muchísimo cariño, y muchos sentimientos en auge, del futuro amor de tu vida, un gran beso.</p>
+                    </figcaption>
+                </figure>
+
+                <figure class="gallery-item">
+                    <img src="assets/foto2.jpg" alt="Recuerdo 2" loading="lazy">
+                    <figcaption class="photo-caption">Aquí va el texto de este recuerdo <!-- TODO: edítame --></figcaption>
+                </figure>
+
+                <div class="note-card">
+                    <p class="note-quote">"Todavía recuerdo la primera vez que te vi sonreír así..."</p>
+                    <span class="note-tag">Nota #1 · edítame en index.html</span>
+                </div>
+
+                <figure class="gallery-item">
+                    <img src="assets/foto3.jpg" alt="Recuerdo 3" loading="lazy">
+                    <figcaption class="photo-caption">Aquí va el texto de este recuerdo <!-- TODO: edítame --></figcaption>
+                </figure>
+
+                <figure class="gallery-item">
+                    <img src="assets/foto4.jpg" alt="Recuerdo 4" loading="lazy">
+                    <figcaption class="photo-caption">Aquí va el texto de este recuerdo <!-- TODO: edítame --></figcaption>
+                </figure>
+
+                <div class="note-card">
+                    <p class="note-quote">"Contigo hasta los días normales se sienten especiales."</p>
+                    <span class="note-tag">Nota #2 · edítame en index.html</span>
+                </div>
+
+                <figure class="gallery-item">
+                    <img src="assets/foto5.jpg" alt="Recuerdo 5" loading="lazy">
+                    <figcaption class="photo-caption">Aquí va el texto de este recuerdo <!-- TODO: edítame --></figcaption>
+                </figure>
+
+                <div class="note-card">
+                    <p class="note-quote">"Gracias por cada recuerdo que hemos construido juntos. Vienen muchos más."</p>
+                    <span class="note-tag">Nota #3 · edítame en index.html</span>
+                </div>
+
+                <figure class="gallery-item">
+                    <img src="assets/foto6.jpg" alt="Recuerdo 6" loading="lazy">
+                    <figcaption class="photo-caption">Aquí va el texto de este recuerdo <!-- TODO: edítame --></figcaption>
+                </figure>
+            </div>
+            <!-- TODO: sustituye assets/fotoN.jpg por tus fotos reales, y las notas/captions por tus textos -->
+        </section>
+
+        <button type="button" class="games-link games-return" id="back-to-main">← Volver a la pantalla principal</button>
+    </div>
+
+    <!-- Visor de imagen ampliada (lightbox) -->
+    <div class="lightbox-overlay" id="lightbox-overlay">
+        <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Cerrar imagen ampliada">✕</button>
+        <img src="" alt="" id="lightbox-img">
+    </div>
+
+    <script src="config.js?v=2.0"></script>
+    <script src="script.js?v=2.0"></script>
 </body>
 </html>
