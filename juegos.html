@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Juegos mensuales</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=2.2">
+    <link rel="stylesheet" href="styles.css?v=3.0">
 </head>
 
 <body>
@@ -16,12 +16,12 @@
 
         <h1 class="games-title">Juegos mensuales 🎮</h1>
         <p class="games-subtitle">
-            Cada mes se desbloquea un juego nuevo. Consigue los 5 fragmentos y únelos
+            Cada mes se desbloquean nuevos juegos. Consigue los 12 fragmentos y únelos
             en orden para descubrir la contraseña final.
         </p>
 
-        <!-- AGOSTO: Trivia -->
-        <section class="game-card" data-month="august">
+        <!-- AGOSTO 1: Trivia -->
+        <section class="game-card" data-game="aug1">
             <h2 class="game-card-title">🌞 Agosto · Trivia</h2>
 
             <p class="game-locked-msg"></p>
@@ -38,9 +38,9 @@
             </div>
         </section>
 
-        <!-- SEPTIEMBRE: Memorama -->
-        <section class="game-card" data-month="september">
-            <h2 class="game-card-title">🍂 Septiembre · Memorama</h2>
+        <!-- AGOSTO 2: Memorama -->
+        <section class="game-card" data-game="aug2">
+            <h2 class="game-card-title">🌞 Agosto · Memorama</h2>
 
             <p class="game-locked-msg"></p>
 
@@ -64,9 +64,24 @@
             </div>
         </section>
 
-        <!-- OCTUBRE: Ahorcado -->
-        <section class="game-card" data-month="october">
-            <h2 class="game-card-title">🎃 Octubre · Ahorcado</h2>
+        <!-- AGOSTO 3: Anagrama -->
+        <section class="game-card" data-game="aug3">
+            <h2 class="game-card-title">🌞 Agosto · Anagrama</h2>
+
+            <p class="game-locked-msg"></p>
+
+            <div class="game-body">
+                <p class="game-question">Ordena las letras para descubrir la palabra escondida:</p>
+                <div class="anagram-letters"></div>
+                <p class="anagram-answer">…</p>
+                <button type="button" class="anagram-clear">🔄 Reiniciar letras</button>
+                <p class="game-feedback"></p>
+            </div>
+        </section>
+
+        <!-- SEPTIEMBRE 1: Ahorcado -->
+        <section class="game-card" data-game="sep1">
+            <h2 class="game-card-title">🍂 Septiembre · Ahorcado</h2>
 
             <p class="game-locked-msg"></p>
 
@@ -79,9 +94,44 @@
             </div>
         </section>
 
-        <!-- NOVIEMBRE: Adivinanza -->
-        <section class="game-card" data-month="november">
-            <h2 class="game-card-title">🍁 Noviembre · Adivinanza</h2>
+        <!-- SEPTIEMBRE 2: Verdadero o falso -->
+        <section class="game-card" data-game="sep2">
+            <h2 class="game-card-title">🍂 Septiembre · Verdadero o falso</h2>
+
+            <p class="game-locked-msg"></p>
+
+            <div class="game-body">
+                <p class="game-question">Responde verdadero o falso a cada frase para conseguir tu fragmento:</p>
+                <div class="truefalse-list">
+                    <div class="truefalse-item" data-answer="true">
+                        <p class="truefalse-statement">Empezamos a hablar un 13 de junio. <!-- TODO: edítame --></p>
+                        <div class="truefalse-options">
+                            <button type="button" class="truefalse-option" data-value="true">Verdadero</button>
+                            <button type="button" class="truefalse-option" data-value="false">Falso</button>
+                        </div>
+                    </div>
+                    <div class="truefalse-item" data-answer="false">
+                        <p class="truefalse-statement">Pasó más de un mes hasta que nos vimos en persona por primera vez. <!-- TODO: edítame --></p>
+                        <div class="truefalse-options">
+                            <button type="button" class="truefalse-option" data-value="true">Verdadero</button>
+                            <button type="button" class="truefalse-option" data-value="false">Falso</button>
+                        </div>
+                    </div>
+                    <div class="truefalse-item" data-answer="true">
+                        <p class="truefalse-statement">Tu cumpleaños cae justo el día en que termina esta cuenta atrás. <!-- TODO: edítame --></p>
+                        <div class="truefalse-options">
+                            <button type="button" class="truefalse-option" data-value="true">Verdadero</button>
+                            <button type="button" class="truefalse-option" data-value="false">Falso</button>
+                        </div>
+                    </div>
+                </div>
+                <p class="game-feedback"></p>
+            </div>
+        </section>
+
+        <!-- SEPTIEMBRE 3: Adivinanza -->
+        <section class="game-card" data-game="sep3">
+            <h2 class="game-card-title">🍂 Septiembre · Adivinanza</h2>
 
             <p class="game-locked-msg"></p>
 
@@ -98,15 +148,130 @@
             </div>
         </section>
 
-        <!-- DICIEMBRE: Puzzle deslizante -->
-        <section class="game-card" data-month="december">
+        <!-- OCTUBRE 1: Cifrado César -->
+        <section class="game-card" data-game="oct1">
+            <h2 class="game-card-title">🎃 Octubre · Mensaje cifrado</h2>
+
+            <p class="game-locked-msg"></p>
+
+            <div class="game-body">
+                <p class="game-question">Cada letra del mensaje se ha desplazado 3 posiciones. Descífralo y escribe la frase completa: <!-- TODO: cambia el mensaje en games.js (CIPHER_MESSAGE) --></p>
+                <p class="cipher-text"></p>
+                <div class="input-group">
+                    <input type="text" class="cipher-input" placeholder="Tu respuesta" autocomplete="off">
+                    <button type="button" class="cipher-check">Comprobar</button>
+                </div>
+                <p class="game-feedback"></p>
+            </div>
+        </section>
+
+        <!-- OCTUBRE 2: Trivia -->
+        <section class="game-card" data-game="oct2">
+            <h2 class="game-card-title">🎃 Octubre · Trivia</h2>
+
+            <p class="game-locked-msg"></p>
+
+            <div class="game-body">
+                <p class="game-question">¿En qué mes es tu cumpleaños? <!-- TODO: cambia esta pregunta y respuestas --></p>
+                <div class="trivia-options">
+                    <button class="trivia-option" type="button">Octubre</button>
+                    <button class="trivia-option" type="button">Noviembre</button>
+                    <button class="trivia-option" type="button" data-correct="true">Diciembre</button>
+                    <button class="trivia-option" type="button">Enero</button>
+                </div>
+                <p class="game-feedback"></p>
+            </div>
+        </section>
+
+        <!-- NOVIEMBRE 1: Memorama -->
+        <section class="game-card" data-game="nov1">
+            <h2 class="game-card-title">🍁 Noviembre · Memorama</h2>
+
+            <p class="game-locked-msg"></p>
+
+            <div class="game-body">
+                <p class="game-question">Encuentra las 6 parejas para conseguir tu fragmento:</p>
+                <div class="memory-grid">
+                    <button class="memory-card" type="button" data-pair="3" data-symbol="🦋">❓</button>
+                    <button class="memory-card" type="button" data-pair="1" data-symbol="🌸">❓</button>
+                    <button class="memory-card" type="button" data-pair="5" data-symbol="🍫">❓</button>
+                    <button class="memory-card" type="button" data-pair="2" data-symbol="🎁">❓</button>
+                    <button class="memory-card" type="button" data-pair="6" data-symbol="🎶">❓</button>
+                    <button class="memory-card" type="button" data-pair="4" data-symbol="🌟">❓</button>
+                    <button class="memory-card" type="button" data-pair="1" data-symbol="🌸">❓</button>
+                    <button class="memory-card" type="button" data-pair="3" data-symbol="🦋">❓</button>
+                    <button class="memory-card" type="button" data-pair="4" data-symbol="🌟">❓</button>
+                    <button class="memory-card" type="button" data-pair="6" data-symbol="🎶">❓</button>
+                    <button class="memory-card" type="button" data-pair="2" data-symbol="🎁">❓</button>
+                    <button class="memory-card" type="button" data-pair="5" data-symbol="🍫">❓</button>
+                </div>
+                <p class="game-feedback"></p>
+            </div>
+        </section>
+
+        <!-- NOVIEMBRE 2: Verdadero o falso -->
+        <section class="game-card" data-game="nov2">
+            <h2 class="game-card-title">🍁 Noviembre · Verdadero o falso</h2>
+
+            <p class="game-locked-msg"></p>
+
+            <div class="game-body">
+                <p class="game-question">Responde verdadero o falso a cada frase para conseguir tu fragmento:</p>
+                <div class="truefalse-list">
+                    <div class="truefalse-item" data-answer="false">
+                        <p class="truefalse-statement">El negro es mi color favorito.</p>
+                        <div class="truefalse-options">
+                            <button type="button" class="truefalse-option" data-value="true">Verdadero</button>
+                            <button type="button" class="truefalse-option" data-value="false">Falso</button>
+                        </div>
+                    </div>
+                    <div class="truefalse-item" data-answer="true">
+                        <p class="truefalse-statement">Tardo menos que tú en responder.</p>
+                        <div class="truefalse-options">
+                            <button type="button" class="truefalse-option" data-value="true">Verdadero</button>
+                            <button type="button" class="truefalse-option" data-value="false">Falso</button>
+                        </div>
+                    </div>
+                    <div class="truefalse-item" data-answer="true">
+                        <p class="truefalse-statement">Cuando falta poco para verte, se me acelera el pulso.</p>
+                        <div class="truefalse-options">
+                            <button type="button" class="truefalse-option" data-value="true">Verdadero</button>
+                            <button type="button" class="truefalse-option" data-value="false">Falso</button>
+                        </div>
+                    </div>
+                </div>
+                <p class="game-feedback"></p>
+            </div>
+        </section>
+
+        <!-- DICIEMBRE 1: Adivinanza -->
+        <section class="game-card" data-game="dic1">
+            <h2 class="game-card-title">🎄 Diciembre · Adivinanza</h2>
+
+            <p class="game-locked-msg"></p>
+
+            <div class="game-body">
+                <p class="game-question">
+                    "No se puede ver, ni tocar, ni oír, pero se siente pasar, y por mucho que lo intentes
+                    nunca vuelve atrás. ¿Qué soy?"
+                </p>
+                <div class="input-group">
+                    <input type="text" class="riddle-input" placeholder="Tu respuesta" autocomplete="off">
+                    <button type="button" class="riddle-check">Comprobar</button>
+                </div>
+                <p class="game-feedback"></p>
+            </div>
+        </section>
+
+        <!-- DICIEMBRE 2: Puzzle deslizante -->
+        <section class="game-card" data-game="dic2">
             <h2 class="game-card-title">🎄 Diciembre · Puzzle deslizante</h2>
 
             <p class="game-locked-msg"></p>
 
             <div class="game-body">
                 <p class="game-question">Ordena las fichas del 1 al 8 para conseguir tu último fragmento:</p>
-                <div class="sliding-puzzle" id="sliding-puzzle"></div>
+                <div class="sliding-puzzle"></div>
                 <p class="game-feedback"></p>
             </div>
         </section>
@@ -114,7 +279,8 @@
         <a href="index.html" class="games-link games-return">← Volver a la pantalla principal</a>
     </div>
 
-    <script src="config.js?v=2.2"></script>
-    <script src="games.js?v=2.2"></script>
+    <script src="config.js?v=3.0"></script>
+    <script src="games.js?v=3.0"></script>
+    <script src="hearts.js?v=3.0"></script>
 </body>
 </html>

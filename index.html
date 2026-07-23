@@ -7,10 +7,36 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Mi regalo</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=2.2">
+    <link rel="stylesheet" href="styles.css?v=3.0">
 </head>
 
 <body>
+    <!-- Aviso importante + pantalla de login, agrupados para aparecer/desaparecer juntos -->
+    <div class="login-stack" id="login-stack">
+
+        <!-- Aviso importante: cuenta atrás hasta el 15 de agosto -->
+        <div class="notice-banner" id="notice-banner">
+            <p class="notice-label">⚠️ Aviso importante</p>
+            <div id="notice-clock" class="notice-clock">
+                <div class="time-block">
+                    <span id="notice-days">00</span>
+                    <small>Días</small>
+                </div>
+                <div class="time-block">
+                    <span id="notice-hours">00</span>
+                    <small>Horas</small>
+                </div>
+                <div class="time-block">
+                    <span id="notice-minutes">00</span>
+                    <small>Min</small>
+                </div>
+                <div class="time-block">
+                    <span id="notice-seconds">00</span>
+                    <small>Seg</small>
+                </div>
+            </div>
+        </div>
+
     <!-- PANTALLA 1: Cuenta atrás + clave secreta -->
     <div class="card-container" id="login-screen">
         <!-- Título principal -->
@@ -54,6 +80,7 @@
         <div class="games-link-section">
             <a href="juegos.html" class="games-link">🎮 Juegos mensuales</a>
         </div>
+    </div>
     </div>
 
     <!-- PANTALLA 2: Regalo desbloqueado (oculta hasta acertar la clave) -->
@@ -148,7 +175,8 @@
         <img src="" alt="" id="lightbox-img">
     </div>
 
-    <script src="config.js?v=2.2"></script>
-    <script src="script.js?v=2.2"></script>
+    <script src="config.js?v=3.0"></script>
+    <script src="script.js?v=3.0"></script>
+    <script src="hearts.js?v=3.0"></script>
 </body>
 </html>

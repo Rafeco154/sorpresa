@@ -2,7 +2,8 @@
 // y las fechas de los juegos mensuales viven en config.js (compartido con juegos.html)
 
 // ==== ELEMENTOS ====
-const loginScreen = document.getElementById("login-screen");
+const loginStack = document.getElementById("login-stack"); // aviso + tarjeta: aparecen/desaparecen juntos
+const loginScreen = document.getElementById("login-screen"); // solo la tarjeta (para el efecto shake)
 const revealScreen = document.getElementById("reveal-screen");
 const passInput = document.getElementById("pass-input");
 const errorMsg = document.getElementById("error-message");
@@ -31,6 +32,33 @@ function updateCountdown() {
 
 const countdownInterval = setInterval(updateCountdown, 1000);
 updateCountdown();
+
+// ==== AVISO IMPORTANTE (cuenta atrás hasta el 15 de agosto) ====
+function updateNoticeCountdown() {
+    const now = new Date().getTime();
+    const timeLeft = NOTICE_DATE - now;
+
+    if (TESTING_MODE_SHOW_NOTICE_END || timeLeft < 0) {
+        document.getElementById("notice-banner").innerHTML =
+            '<p class="notice-label">📌 Aviso importante</p>' +
+            '<p class="notice-text">Es necesario dejar libres los días 18, 19 y 20 de diciembre.</p>';
+        clearInterval(noticeCountdownInterval);
+        return;
+    }
+
+    const noticeDays = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+    const noticeHours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const noticeMinutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+    const noticeSeconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+    document.getElementById("notice-days").innerText = String(noticeDays).padStart(2, "0");
+    document.getElementById("notice-hours").innerText = String(noticeHours).padStart(2, "0");
+    document.getElementById("notice-minutes").innerText = String(noticeMinutes).padStart(2, "0");
+    document.getElementById("notice-seconds").innerText = String(noticeSeconds).padStart(2, "0");
+}
+
+const noticeCountdownInterval = setInterval(updateNoticeCountdown, 1000);
+updateNoticeCountdown();
 
 // ==== LÓGICA DE CONTRASEÑA ====
 function checkPassword() {
@@ -66,11 +94,11 @@ function showTooEarlyMessage() {
 function unlockGift() {
     errorMsg.innerText = "";
 
-    // Fade-out de la pantalla de login
-    loginScreen.classList.add("fade-out");
+    // Fade-out del aviso + la pantalla de login, juntos
+    loginStack.classList.add("fade-out");
 
     setTimeout(() => {
-        loginScreen.hidden = true;
+        loginStack.hidden = true;
 
         // Fade-in de la pantalla revelada
         revealScreen.hidden = false;
@@ -86,12 +114,12 @@ function lockGift() {
     setTimeout(() => {
         revealScreen.hidden = true;
 
-        // Fade-in de la pantalla de login, lista para volver a intentarlo
+        // Fade-in del aviso + la pantalla de login, listos para volver a intentarlo
         passInput.value = "";
         errorMsg.innerText = "";
-        loginScreen.hidden = false;
-        void loginScreen.offsetWidth; // Reinicia la animación
-        loginScreen.classList.remove("fade-out");
+        loginStack.hidden = false;
+        void loginStack.offsetWidth; // Reinicia la animación
+        loginStack.classList.remove("fade-out");
     }, 600);
 }
 
